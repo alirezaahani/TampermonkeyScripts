@@ -14,7 +14,7 @@
 
     const access_token = localStorage.token;
     const book_id = location.pathname.split('/').slice(-2)[0];
-    const max_pages = JSON.parse(sessionStorage.getItem('libraryBookData-375')).totalBookPage;
+    const max_pages = JSON.parse(sessionStorage.getItem(`libraryBookData-${book_id}`)).totalBookPage;
 
     const pdfDoc = await PDFLib.PDFDocument.create();
 
