@@ -35,12 +35,22 @@
         const doc = parser.parseFromString(page_html, "text/html");
         doc.querySelectorAll('.commentRow').forEach(el => {
             const comment = {
-                'logDate': el.querySelector('.logDate')?.innerText.replace(/\s+/g,' ').trim(),
-                'blogRow': el.querySelector('.blogRow')?.innerText.replace(/\s+/g,' ').trim(),
-                'fullComment': el.querySelector('.fullComment')?.innerText.replace(/\s+/g,' ').trim(),
-                'replyInfo': el.querySelector('.replyInfo')?.innerText.replace(/\s+/g,' ').trim(),
-                'replyText': el.querySelector('.replyText')?.innerText.replace(/\s+/g,' ').trim(),
-                'replyLink': el.querySelector('.replyInfo')?.querySelector('a'),
+                'blog': {
+                    'name': el.querySelector('.blogRow')?.innerText.replace(/\s+/g,' ').trim(),
+                    'post': el.querySelector('.postRow')?.innerText.replace(/\s+/g,' ').trim(),
+                    'link': el.getAttribute("data-post-link"),
+                },
+                'comment': {
+                    'date': el.querySelector('.logDate')?.innerText.replace(/\s+/g,' ').trim(),
+                    'website': el.querySelector('a.website')?.href,
+                    'email': el.querySelector('a.email')?.innerText.replace(/\s+/g,' ').trim(),
+                    'text': el.querySelector('.fullComment')?.innerText.replace(/\s+/g,' ').trim(),
+                },
+                'reply': {
+                    'info': el.querySelector('.replyInfo')?.innerText.replace(/\s+/g,' ').trim(),
+                    'text': el.querySelector('.replyText')?.innerText.replace(/\s+/g,' ').trim(),
+                    'link': el.querySelector('.replyInfo')?.querySelector('a')?.href,
+                }
             };
             comments.push(comment);
 
